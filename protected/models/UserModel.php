@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the model class for table "member".
+ * This is the model class for table "user".
  *
  * The followings are the available columns in table 'member':
  * @property integer $uid
@@ -10,14 +10,16 @@
  * @property string $pswd
  * @property integer $group_id
  */
-class MemberModel extends CActiveRecord
+class UserModel extends CActiveRecord
 {
+    public $repswd;
+    public $newPswd;
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'member';
+		return 'user';
 	}
 
 	/**
@@ -28,10 +30,13 @@ class MemberModel extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, pswd, group_id', 'required'),
+			array('username,group_id', 'required'),
+            array('pswd','required','on'=>'create'),
+            array('username','unique'),
 			array('group_id', 'numerical', 'integerOnly'=>true),
 			array('username, nickname', 'length', 'max'=>50),
 			array('pswd', 'length', 'max'=>32),
+            array('pswd', 'compare', 'compareAttribute'=>'repswd' ,'on'=>'forgot',"message"=>"两次密码不一致"),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('uid, username, nickname, pswd, group_id', 'safe', 'on'=>'search'),
@@ -56,10 +61,11 @@ class MemberModel extends CActiveRecord
 	{
 		return array(
 			'uid' => 'Uid',
-			'username' => 'Username',
-			'nickname' => 'Nickname',
-			'pswd' => 'Pswd',
-			'group_id' => 'Group',
+			'username' => '用户名',
+			'nickname' => '昵称',
+			'pswd' => '密码',
+            'repswd' => '重复密码',
+			'group_id' => '用户组',
 		);
 	}
 
@@ -96,7 +102,7 @@ class MemberModel extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return MemberModel the static model class
+	 * @return UserModel the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

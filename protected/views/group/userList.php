@@ -1,20 +1,20 @@
 <?php
-/* @var $this GroupController */
+/* @var $this UserController */
 
 $this->breadcrumbs=array(
     array('name' => '首页', 'url' => array('site/index')),
-    array('name' => '用户组'),
+    array('name' => '用户'),
 );
 ?>
 <div class="page-header">
     <h1>
-        管理组
+        用户
         <small>
             <i class="icon-double-angle-right"></i>
-            管理组列表
+            用户列表
         </small>
     </h1>
-    <a href="<?= Yii::app()->createUrl('/group/create')?>">添加</a>
+    <a href="<?= Yii::app()->createUrl('/group/userCreate')?>">添加</a>
 </div>
 <div class="row">
     <div class="col-xs-12">
@@ -30,7 +30,9 @@ $this->breadcrumbs=array(
                                     <span class="lbl"></span>
                                 </label>
                             </th>
-                            <th>名称</th>
+                            <th>用户名</th>
+                            <th>昵称</th>
+                            <th>用户组</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -41,26 +43,27 @@ $this->breadcrumbs=array(
                             <tr>
                                 <td class="center">
                                     <label>
-                                        <input type="checkbox" class="ace" value="<?=$d['group_id']?>">
+                                        <input type="checkbox" class="ace" value="<?=$d['uid']?>">
                                         <span class="lbl"></span>
                                     </label>
                                 </td>
                                 <td>
-                                    <?=$d['name']?>
+                                    <?=$d['username']?>
+                                </td>
+                                <td>
+                                    <?=$d['nickname']?>
+                                </td>
+                                <td>
+                                    <?=$d['group_id']?>
                                 </td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                                        <a class="btn btn-xs btn-success"
-                                           href="<?= Yii::app()->createUrl('/group/view/id/' . $d->group_id) ?>"
-                                           class="blue">
-                                            <i class="icon-zoom-in bigger-130"></i>
-                                        </a>
                                         <a class="btn btn-xs btn-danger bootbox-confirm"
-                                           rel="<?= Yii::app()->createUrl('/group/delete/id/' . $d->group_id) ?>">
+                                           rel="<?= Yii::app()->createUrl('/group/userDelete/id/' . $d->uid) ?>">
                                             <i class="icon-trash bigger-120"></i>
                                         </a>
                                         <a class="btn btn-xs btn-info"
-                                           href="<?= Yii::app()->createUrl('/group/update/id/' . $d->group_id) ?>">
+                                           href="<?= Yii::app()->createUrl('/group/userUpdate/id/' . $d->uid) ?>">
                                             <i class="icon-edit bigger-120"></i>
                                         </a>
                                     </div>

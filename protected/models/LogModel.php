@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'log':
  * @property integer $id
- * @property integer $uid
+ * @property integer $username
  * @property string $content
  * @property integer $datetime
  */
@@ -38,7 +38,7 @@ class LogModel extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, content, datetime', 'required'),
-			array('username, datetime', 'numerical', 'integerOnly'=>true),
+			array('datetime', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, username, content, datetime', 'safe', 'on'=>'search'),
