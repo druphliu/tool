@@ -35,8 +35,9 @@ class UserModel extends CActiveRecord
             array('username','unique'),
 			array('group_id', 'numerical', 'integerOnly'=>true),
 			array('username, nickname', 'length', 'max'=>50),
-			array('pswd,repswd', 'length', 'max'=>32),
-            array('pswd', 'compare', 'compareAttribute'=>'repswd' ,'on'=>'forgot',"message"=>"两次密码不一致"),
+            array('pswd, repswd', 'length', 'max' => 32),
+            array('pswd', 'compare', 'compareAttribute'=>'repswd' ,'on'=>'create',"message"=>"两次密码不一致"),
+            array('newPswd', 'compare', 'compareAttribute'=>'repswd' ,'on'=>'update',"message"=>"两次密码不一致"),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('uid, username, nickname, pswd, group_id', 'safe', 'on'=>'search'),
@@ -109,4 +110,13 @@ class UserModel extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            // 行为类名 => 类文件别名路径
+            'ActiveRecordLogableBehavior'=>
+                'application.behaviors.ActiveRecordLogableBehavior',
+        );
+    }
 }

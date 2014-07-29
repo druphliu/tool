@@ -70,10 +70,15 @@ class LoginForm extends CFormModel
             Yii::app()->user->login($this->_identity, $duration);
             $userInfo = UserModel::model()->find('username=:username', array(':username' => $this->username));
             Yii::app()->session['userInfo'] = array('uid'=>$userInfo->uid,'username'=>$userInfo->username,'nickname'=>$userInfo->nickname,'group_id'=>$userInfo->group_id);
-            $log = new LogModel;
-            $log->username = $userInfo->username;
-            $log->content = Yii::t('admin/user', "{nickname} login system", array('nickname' => $userInfo->nickname ? $userInfo->nickname : $userInfo->username));
-            $log->datetime = time();
+            //log
+            $log = new ActiveRecordLog;
+            $log->description =  Yii::t('admin/activeLog', 'User {username} login',array('username'=>Yii::app()->user->Name));
+            $log->action = 'LOGIN';
+            $log->model = __CLASS__;
+            $log->idModel = $userInfo->uid;
+            $log->field = '';
+            $log->created_at = new CDbExpression('NOW()');
+            $log->username = Yii::app()->user->id;
             $log->save();
             return true;
         } else

@@ -50,10 +50,10 @@ $this->breadcrumbs=array(
                 <?=$l['username']?>
             </td>
             <td>
-                <?=$l['content']?>
+                <?=$l['description']?>
             </td>
             <td>
-                <?=date('Y-m-d H:i:s',$l->datetime)?>
+                <?=$l['created_at']?>
             </td>
             <td>
                 <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">

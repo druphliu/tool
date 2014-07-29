@@ -6,11 +6,15 @@ $this->breadcrumbs=array(
     array('name' => '更新用户'),
 );
 ?>
-<?php echo $this->renderPartial('_userForm', array('model'=>$model,'group'=>$group)); ?>
-
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
-
-<p>
-	You may change the content of this page by modifying
-	the file <tt><?php echo __FILE__; ?></tt>.
-</p>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            编辑用户
+            <small>
+                <i class="icon-double-angle-right"></i>
+                <?= $model->username?>
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
+    <?php echo $this->renderPartial('_userForm', array('model'=>$model,'group'=>$group)); ?>
+</div>

@@ -92,7 +92,7 @@ class GroupController extends Controller
         if (isset($_POST['UserModel'])) {
             // 收集用户输入的数据
             $model->attributes = $_POST['UserModel'];
-            $model->scenario = 'forgot';
+            $model->scenario = 'create';
             if ($model->validate()) {
                 //检查用户是否重复
                 $model->pswd = md5($_POST['UserModel']['pswd']);
@@ -107,23 +107,16 @@ class GroupController extends Controller
     public function actionUserUpdate($id)
     {
         $model = UserModel::model()->findByPk($id);
-        $model->pswd = '';
         $group = GroupModel::model()->findall();
         foreach ($group as $v) {
             $groupList[$v->group_id] = $v->name;
         }
         if (isset($_POST['UserModel'])) {
-            if ($_POST['UserModel']['newPswd']) {
-                $_POST['UserModel']['pswd'] = $_POST['UserModel']['newPswd'];
-            }
             $model->attributes = $_POST['UserModel'];
-            $model->scenario = 'forgot';
+            $model->scenario = 'update';
             if ($model->validate()) {
-                if (isset($_POST['UserModel']['pswd'])) {
-                    $model->pswd = md5($_POST['UserModel']['pswd']);
-                    $model->repswd = md5($_POST['UserModel']['repswd']);
-                } else {
-                    unset($model->pswd);
+                if ($_POST['UserModel']['newPswd']) {
+                    $model->pswd = md5($_POST['UserModel']['newPswd']);
                 }
                 $model->save();
                 $this->redirect(array('group/user'));

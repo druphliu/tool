@@ -5,9 +5,9 @@ class LogController extends Controller
 	public function actionIndex()
 	{
         $this->layout = "//layouts/list";
-        $dataProvider = new CActiveDataProvider('LogModel', array(
+        $dataProvider = new CActiveDataProvider('ActiveRecordLog', array(
             'criteria' => array(
-                'order' => 'datetime desc',
+                'order' => 'created_at desc',
             ),
             //'pagination' => false,
             'pagination' => array(

@@ -7,7 +7,7 @@
  */
 class Page
 {
-    const SIZE = 3;
+    const SIZE = 15;
     static function go($pages)
     {
         return array(
