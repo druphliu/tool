@@ -5,15 +5,15 @@
             'enableAjaxValidation' => false,
             'enableClientValidation' => true,
             'focus' => array($model, 'name'),
-            'htmlOptions'=>array('class'=>'form-horizontal')
+            'htmlOptions' => array('class' => 'form-horizontal')
         )); ?>
         <?php echo $form->errorSummary($model, BootStrapUI::alertError, '', array('class' => BootStrapUI::alertErrorClass)); ?>
 
         <div class="form-group">
             <?php echo $form->labelEx($model, 'name', array('class' => BootStrapUI::formLabelClass)); ?>
             <div class="col-sm-9">
-                <?php echo $form->textField($model, 'name',array('class'=>'col-xs-8 col-sm-2')); ?>
-                <?php echo $form->error($model, 'name',array('class'=>'help-block col-xs-12 col-sm-reset inline')); ?>
+                <?php echo $form->textField($model, 'name', array('class' => 'col-xs-8 col-sm-2')); ?>
+                <?php echo $form->error($model, 'name', array('class' => 'help-block col-xs-12 col-sm-reset inline')); ?>
             </div>
         </div>
         <div class="space-4"></div>
@@ -23,12 +23,17 @@
                 <?php $actions = explode(',', $model->action);
                 foreach (AdminMenu::$menuList as $name => $menu) {
                     ?>
-                    <?php echo Chtml::checkBox($menu['act'], in_array($menu['act'], $actions), array('class' => 'mainGroup', 'rel' => $menu['act'], 'value' => $menu['act'])); ?>
+                <fieldset style="margin:30px; border-radius:5px">
+                <legend>
+                    <?php echo Chtml::checkBox($menu['act'], in_array($menu['act'], $actions),
+                        array('class' => 'mainGroup', 'rel' => $menu['act'], 'value' => $menu['act'])); ?>
                     <label for="<?= $menu['act'] ?>"><?php echo $name ?></label>
+                </legend>
                     <?php foreach ($menu['action'] as $k => $action) { ?>
-                        <?php echo Chtml::checkBox($action['act'], in_array($action['act'], $actions), array('rel' => $menu['act'], 'class' => 'sub_' . $menu['act'] . " sub_group", 'value' => $action['act'])); ?>
+                        <?php echo Chtml::checkBox($action['act'], in_array($action['act'], $actions), array('rel' => $menu['act'], 'class' => 'sub_' . $menu['act'] . " subGroup", 'value' => $action['act'])); ?>
                         <label for="<?= $action['act'] ?>"><?php echo $action['name'] ?></label>
                     <?php } ?>
+                    </fieldset>
                 <?php } ?>
                 <?php echo $form->hiddenField($model, 'action'); ?>
                 <?php echo $form->error($model, 'action'); ?>
@@ -47,7 +52,7 @@
 </div>
 <script>
     $().ready(function () {
-        $(".sub_group").click(function () {
+        $(".subGroup").click(function () {
             var id = $(this).attr('rel');
             if ($(this).attr('checked') == 'checked') {
                 $(".mainGroup").each(function () {
@@ -60,7 +65,7 @@
             } else {
                 //子菜单无选择则父菜单取消选择状态
                 var isChecked = false;
-                $(this).siblings(".sub_group").each(function () {
+                $(this).siblings(".subGroup").each(function () {
                     if ($(this).attr("checked") == "checked") {
                         isChecked = true;
                     }
