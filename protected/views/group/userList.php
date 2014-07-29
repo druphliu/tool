@@ -54,7 +54,7 @@ $this->breadcrumbs=array(
                                     <?=$d['nickname']?>
                                 </td>
                                 <td>
-                                    <?=$d['group_id']?>
+                                    <?=$group[$d['group_id']]?>
                                 </td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">

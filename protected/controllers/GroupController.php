@@ -58,6 +58,10 @@ class GroupController extends Controller
     public function actionUser()
     {
         $this->layout = '//layouts/list';
+        $group = GroupModel::model()->findall();
+        foreach ($group as $v) {
+            $groupList[$v->group_id] = $v->name;
+        }
         $dataProvider = new CActiveDataProvider('UserModel', array(
             'criteria' => array(
                 'order' => 'uid desc',
@@ -67,7 +71,7 @@ class GroupController extends Controller
                 'pageSize' => Page::SIZE,
             ),
         ));
-        $this->render('userList', array('data' => $dataProvider->getData(), 'pages' => $dataProvider->getPagination()));
+        $this->render('userList', array('data' => $dataProvider->getData(), 'pages' => $dataProvider->getPagination(),'group'=>$groupList));
     }
 
     public function actionUserDelete($id)

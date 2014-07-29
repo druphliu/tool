@@ -5,8 +5,16 @@ class LogController extends Controller
 	public function actionIndex()
 	{
         $this->layout = "//layouts/list";
-        $list = LogModel::model()->findAll(array('order'=>'datetime desc'));
-		$this->render('index',array('list'=>$list));
+        $dataProvider = new CActiveDataProvider('LogModel', array(
+            'criteria' => array(
+                'order' => 'datetime desc',
+            ),
+            //'pagination' => false,
+            'pagination' => array(
+                'pageSize' => Page::SIZE,
+            ),
+        ));
+        $this->render('index', array('data' => $dataProvider->getData(), 'pages' => $dataProvider->getPagination()));
 	}
 
 	// Uncomment the following methods and override them if needed
