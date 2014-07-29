@@ -35,7 +35,7 @@ class UserModel extends CActiveRecord
             array('username','unique'),
 			array('group_id', 'numerical', 'integerOnly'=>true),
 			array('username, nickname', 'length', 'max'=>50),
-			array('pswd', 'length', 'max'=>32),
+			array('pswd,repswd', 'length', 'max'=>32),
             array('pswd', 'compare', 'compareAttribute'=>'repswd' ,'on'=>'forgot',"message"=>"两次密码不一致"),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -64,6 +64,7 @@ class UserModel extends CActiveRecord
 			'username' => '用户名',
 			'nickname' => '昵称',
 			'pswd' => '密码',
+            'newPswd'=>'密码',
             'repswd' => '重复密码',
 			'group_id' => '用户组',
 		);
