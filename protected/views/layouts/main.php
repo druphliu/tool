@@ -317,7 +317,7 @@
         </li>
 
         <li>
-            <a href="#">
+            <a href="<?=Yii::app()->createUrl('user/profile')?>">
                 <i class="icon-user"></i>
                 个人资料
             </a>

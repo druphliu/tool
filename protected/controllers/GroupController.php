@@ -55,6 +55,11 @@ class GroupController extends Controller
 
     }
 
+    public function actionView($id){
+        $data = GroupModel::model()->findByPk($id);
+        $this->render('view',array('data'=>$data));
+    }
+
     public function actionUser()
     {
         $this->layout = '//layouts/list';
